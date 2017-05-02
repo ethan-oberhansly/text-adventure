@@ -1,3 +1,2 @@
-# hello-world
-
-My name is Ethan. 
+# GIT-commits
+practicing commits

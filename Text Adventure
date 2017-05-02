@@ -1,0 +1,121 @@
+#pragma strict
+import UnityEngine.UI;  //We can use these special lines at the top to import more code from pre-built libraries giving us more functionality.
+
+public var textObject : UI.Text;  //By default every variable is set to private.  In this case we want this variable publicly visible so we can easily use it within Unity.
+public enum States {intro, button, lever, opening, up, down, trail, examine, hallway};  //An enum is a special type of variable that allows us to name each number with a name. (instead of it just being a number).
+public var myState : States;  //Think of this as the parent variable that we use, with the enum value held inside.  (myState.intro)
+
+function Start () {  //The start function runs once, the first time this object loads.
+    myState = States.intro;  //We want to make sure the myState gets assigned to .intro
+}
+
+function Update () {
+    print (myState);  //This will display the myState value within the console.  This might be helpful if there is a problem and the text doesn't get properly updated on the normal screen.
+    if (myState == States.intro) 					{state_intro ();}
+    else if (myState == States.button) 				{state_button ();}
+    else if (myState == States.opening)				{state_opening ();}
+    else if (myState == States.lever)				{state_lever ();}
+    else if (myState == States.up) 					{state_up ();}
+    else if (myState == States.down)				{state_down ();}
+    else if (myState == States.trail)				{state_trail ();}
+    else if (myState == States.examine)				{state_examine ();}
+    else if (myState == States.hallway)				{state_hallway ();}
+
+ 
+}
+
+function state_intro(){
+    textObject.text = "You awake to a blinding white light. \n" +
+        "You are lying flat on your back. \n" +
+        "As you look around, you find yourself in a room with an immaculately white ceiling, floor, and walls. \n" +
+        "On the far side of the room there are a button and a lever. \n" +
+        "\n\n" +
+        "Press B to push the Button, L to pull the Lever.";
+    if (Input.GetKeyDown (KeyCode.B)) 					{myState = States.button;}
+    if (Input.GetKeyDown (KeyCode.L)) 					{myState = States.lever;}
+}
+
+function state_button(){
+    textObject.text = "You hear a swoosh to your right!\n" +
+    "You see an opening has appeared but can't see what's inside. \n" +
+    "Maybe this is a way out. \n" +
+    "Maybe you should walk through the opening to find out what lies beyond. \n" +
+    "Should you pull the lever as well just in case? \n" +
+    "\n\n" +
+    "Press L to pull the Lever, O to go through the Opening.";
+    if (Input.GetKeyDown (KeyCode.O)) 					{myState = States.opening;}
+    if (Input.GetKeyDown (KeyCode.L)) 					{myState = States.lever;}
+}
+
+function state_lever(){
+    textObject.text = "You hear a swoosh sound at your feet. \n" +
+        "You feel yourself begin to fall! \n" +
+        "You reach out to grab something but there is nothing to grab onto! \n" +
+        "You slide down a tunnel and think to yourself, I should have known that you never pull the lever. \n" +
+        "You see a light at the end of the tunnel!\n" +
+        "You emerge only to feel yourself still falling.\n" +
+        "You look down and see the ground rushing toward you! At least you have a few moments to think about your actions...\n" +
+        "\n\n";
+   
+}
+
+function state_opening(){
+	textObject.text = "As you enter the room your eyes begin to be accustomed to the light. \n" +
+		"The room is full of computer monitors. \n" +
+		"All the monitors show static except one. \n" + 
+		"There seems to be a live feed of the room you just came from. \n" +
+		"There is an elevator off to your right side. You can either go up or down. \n" +
+		"\n\n" +
+		"Press U to go Up , D to go down.";
+	if (Input.GetKeyDown (KeyCode.U)) 					{myState = States.up;}
+    if (Input.GetKeyDown (KeyCode.D)) 					{myState = States.down;}
+
+}
+
+function state_up(){
+	textObject.text = "The elevator doors open to a grassy field surrounded by forest. \n" +
+		"There is a trail with a sign that reads 1.25 miles to town. \n" +
+		"The elevator seems to be stuck. It looks like there's only one way to go. \n" +
+		"\n\n"+
+		"Press T to go on the trail to town." ;
+	if (Input.GetKeyDown (KeyCode.T))					{myState = States.trail;}
+}
+
+function state_down() {
+	textObject.text = "There are rows as far as you can see of glass cylinders that stretch from the floor to the ceiling. \n" +
+	"You see a hallway off to your right. \n" +
+	"That could be a way out but you're also curious as to what is in the tubes. \n" +
+	"Do you take the time to examine the tubes or leave as quickly as possible? \n" +
+	"\n\n" +
+	"Press E to examine the tubes, H to go to the hallway." ;
+	if (Input.GetKeyDown (KeyCode.E))					{myState = States.examine;}
+	if (Input.GetKeyDown (KeyCode.H))					{myState = States.hallway;}
+}
+
+function state_trail() {
+	textObject.text = "After walking for quite some time you round a bend in the trail and see the end. \n" +
+	"As you emerge from the forest you see the town, or at least what once was a town. \n" +
+	"You walk through the streets of dilapidated fragments of what was once a thriving city. \n" +
+	"There are newspapers strewn across the ground. You pick one up and read a date... October 3rd, 3051. \n" +
+	"You run into the center of town! The farther you go the less rundown the city becomes. You begin to notice the posters up around town...with your face on them. \n" +
+	"Underneath your photo a caption reads, Finally! The perfect clone that every household needs. Sick of those boring old clones who would only do your dauntless manual labor? The new and improved C104 is here for you. Upgrade now! \n" ;
+
+}
+
+function state_examine() {
+	textObject.text = "As you go closer to the tubes you notice something inside. \n" +
+	"You wipe away a layer of condensation that has built up on the glass. \n" +
+	"As you wipe away the condensation you can see clearly into the tube. \n" +
+	"You see a person floating inside facing away from you. Their body rotates until you see a face...your face...staring back at you. \n" +
+	"An alarm sounds! You hear footsteps running and voices yelling something! \n" +
+	"You can't see a way out. You hide behind one of the tubes. You feel a sharp pain in your shoulder and look to see a dart sticking out of it. You wake up to muffled voices. Just as you hear the words, I told you the new model wasn't ready, a swoosh sound opens above you and liquid starts pouring into the tube you're standing in. \n" ; 
+
+}
+
+function state_hallway() {
+	textObject.text = "You enter the hallway and see a mirror, until you realize that it is a photo...of you. \n" +
+	"You look down the hallway and find that it is lined with large photos of you! \n" +
+	"Under each photo there are dates. You reach the end of the hallway and look at the last photo. The date underneath reads October 3, 3051. \n" +
+	"A video begins playing on a screen on the wall. Hello welcome to the Bryer Tech cloning facility... \n" ; 
+}
+	
